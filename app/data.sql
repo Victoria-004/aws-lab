@@ -211,7 +211,7 @@ CREATE TABLE `districts` (
   `district_id` int NOT NULL AUTO_INCREMENT,
   `district_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city_id` int NOT NULL,
-  PRIMARY KEY (`district_id`,`city_id`),
+  PRIMARY KEY (`district_id`),
   KEY `fk_district_city_idx` (`city_id`),
   CONSTRAINT `fk_district_city` FOREIGN KEY (`city_id`) REFERENCES `cities` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
