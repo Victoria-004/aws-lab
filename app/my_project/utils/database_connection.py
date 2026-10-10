@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv() 
 
-print("DEBUG DB_PASSWORD:", os.getenv('DB_PASSWORD'))
-
 def get_db_connection():
     config = {
         'host': os.getenv('DB_HOST', 'localhost'),
