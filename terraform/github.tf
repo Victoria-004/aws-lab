@@ -1,6 +1,6 @@
 variable "github_repo" {
   type        = string
-  description = "Repository on the GitHub"
+  description = "Repository on GitHub"
 }
 
 data "aws_caller_identity" "current" {}
@@ -23,11 +23,7 @@ resource "aws_iam_role" "github_deploy" {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
         StringLike = {
-          "token.actions.githubusercontent.com:sub" = [
-            "repo:${var.github_repo}:*",
-            "repo:Victoria-004/aws-lab:*",
-            "repo:victoria-004/aws-lab:*"
-          ]
+          "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo}:*"
         }
       }
     }]
