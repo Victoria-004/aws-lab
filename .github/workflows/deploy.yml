@@ -25,7 +25,7 @@ jobs:
       - name: Auth to AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-to-assume: arn:aws:iam::358545165461:role/oidc-test
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to ECR
