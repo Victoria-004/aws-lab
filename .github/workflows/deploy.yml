@@ -34,6 +34,16 @@ jobs:
               print(k, '=', c.get(k))
           EOF
 
+      - name: Raw STS call
+        run: |
+          TOKEN=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | python3 -c "import sys,json;print(json.load(sys.stdin)['value'])")
+          aws sts assume-role-with-web-identity \
+            --role-arn arn:aws:iam::358545165461:role/oidc-test \
+            --role-session-name debug \
+            --web-identity-token "$TOKEN" \
+            --region eu-north-1 \
+            --query Credentials.Expiration --output text || true
+
       - name: Auth to AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
