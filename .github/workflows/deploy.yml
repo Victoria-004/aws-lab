@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: eu-north-1
+  AWS_REGION: us-east-1
   ECR_REPOSITORY: labdatabase-app
   ECS_CLUSTER: labdatabase-cluster
   ECS_SERVICE: labdatabase-service
@@ -33,7 +33,7 @@ jobs:
           for k in ('iss', 'aud', 'sub', 'repository', 'repository_id', 'repository_owner', 'repository_owner_id'):
               print(k, '=', c.get(k))
           EOF
-          
+
       - name: Auth to AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
