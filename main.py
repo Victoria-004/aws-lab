@@ -11,7 +11,7 @@ app.register_blueprint(calls_bp)
 
 @app.route('/')
 def home():
-    return "Сервер запущено"
+    return "Сервер працює!!!"
 
 @app.route('/health', methods=['GET'])
 def health_check():
