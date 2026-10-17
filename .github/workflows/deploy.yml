@@ -47,7 +47,7 @@ jobs:
       - name: Auth to AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::358545165461:role/oidc-test
+          role-to-assume: arn:aws:iam::292881083747:role/labdatabase-github-deploy
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to ECR
