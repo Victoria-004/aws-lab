@@ -3,7 +3,7 @@
 Контейнеризований REST API застосунок на Flask, розгорнутий у хмарі AWS з використанням Docker, Terraform та CI/CD.
 
 ## Public Address:
-`http://labdatabase-alb-963682471.eu-north-1.elb.amazonaws.com/`
+`http://labdatabase-alb-598287063.eu-north-1.elb.amazonaws.com`
 
 ## Project Structure:
 

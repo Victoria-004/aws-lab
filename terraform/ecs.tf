@@ -1,5 +1,10 @@
 resource "aws_ecs_cluster" "main" {
   name = "${var.project}-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "app" {
@@ -80,8 +85,8 @@ resource "aws_ecs_service" "app" {
     container_port   = 5000
   }
 
-    lifecycle {
-    ignore_changes = [task_definition]
+  lifecycle {
+    ignore_changes = [task_definition, desired_count]
   }
 
   depends_on = [aws_lb_listener.http]
