@@ -29,11 +29,21 @@
 - два запити без ключа → два записи (для порівняння).
 
 ```powershell
-$env:BASE_URL = "http://labdatabase-alb-598287063.eu-north-1.elb.amazonaws.com"
+$env:BASE_URL = "http://labdatabase-alb-470200426.eu-north-1.elb.amazonaws.com"
 pytest tests/test_idempotency.py -v
 ```
 
-> TODO: вставити вивід pytest.
+Результат проти сервісу в AWS, 8 листопада 2026:
+
+```text
+tests/test_idempotency.py::test_same_key_creates_one_record PASSED       [ 33%]
+tests/test_idempotency.py::test_same_key_with_different_body_is_rejected PASSED [ 66%]
+tests/test_idempotency.py::test_without_key_creates_two_records PASSED   [100%]
+
+======================== 3 passed in 143.20s (0:02:23) ========================
+```
+
+Тест триває понад 2 хвилини, бо список `GET /districts` кешується на 45 с (див. [CACHE.md](CACHE.md)). Перед кожним підрахунком записів тест чекає, поки кеш спливе. Перша версія тесту цього не робила: вона створювала район і одразу читала список з кешу, де нового запису ще не було, тому падала.
 
 ## Обмеження
 

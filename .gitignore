@@ -9,3 +9,4 @@ __pycache__/
 *.tfstate.backup
 terraform.tfvars
 .venv/
+.pytest_cache/
