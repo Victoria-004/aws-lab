@@ -2,3 +2,4 @@ Flask
 mysql-connector-python
 PyYAML
 python-dotenv
+redis

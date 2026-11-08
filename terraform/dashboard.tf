@@ -29,17 +29,12 @@ resource "aws_cloudwatch_dashboard" "main" {
         width  = 12
         height = 6
         properties = {
-          title   = "Завантаження CPU (поріг 60%)"
+          title   = "Завантаження CPU, %"
           region  = var.region
           view    = "timeSeries"
           stacked = false
           period  = 60
           stat    = "Average"
-          annotations = {
-            horizontal = [
-              { label = "Поріг 60%", value = 60 }
-            ]
-          }
           metrics = [
             ["AWS/ECS", "CPUUtilization", "ClusterName", aws_ecs_cluster.main.name, "ServiceName", aws_ecs_service.app.name, { label = "CPU" }]
           ]
@@ -52,14 +47,20 @@ resource "aws_cloudwatch_dashboard" "main" {
         width  = 12
         height = 6
         properties = {
-          title   = "Запити за хвилину"
+          title   = "Запити за хвилину (поріг масштабування ${var.request_target} на задачу)"
           region  = var.region
           view    = "timeSeries"
           stacked = false
           period  = 60
           stat    = "Sum"
+          annotations = {
+            horizontal = [
+              { label = "Поріг ${var.request_target} запитів/хв на задачу", value = var.request_target, yAxis = "right" }
+            ]
+          }
           metrics = [
-            ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", aws_lb.main.arn_suffix, { label = "Запити" }]
+            ["AWS/ApplicationELB", "RequestCount", "LoadBalancer", aws_lb.main.arn_suffix, { label = "Усього запитів" }],
+            ["AWS/ApplicationELB", "RequestCountPerTarget", "TargetGroup", aws_lb_target_group.app.arn_suffix, { label = "Запитів на задачу (метрика політики)", yAxis = "right" }]
           ]
         }
       },
@@ -96,6 +97,25 @@ resource "aws_cloudwatch_dashboard" "main" {
           stat    = "Sum"
           metrics = [
             ["AWS/ApplicationELB", "HTTPCode_Target_5XX_Count", "LoadBalancer", aws_lb.main.arn_suffix, { label = "5xx" }]
+          ]
+        }
+      },
+      {
+        type   = "metric"
+        x      = 12
+        y      = 12
+        width  = 12
+        height = 6
+        properties = {
+          title   = "Навантаження на базу даних"
+          region  = var.region
+          view    = "timeSeries"
+          stacked = false
+          period  = 60
+          stat    = "Average"
+          metrics = [
+            ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", aws_db_instance.main.identifier, { label = "CPU бази, %" }],
+            ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", aws_db_instance.main.identifier, { label = "З'єднання", yAxis = "right" }]
           ]
         }
       }

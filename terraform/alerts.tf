@@ -9,11 +9,11 @@ resource "aws_sns_topic_subscription" "email" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "latency_p95" {
-  alarm_name          = "${var.project}-latency-p95-high"
-  alarm_description   = "p95 латентність понад 500 мс протягом 2 хвилин"
-  namespace           = "AWS/ApplicationELB"
-  metric_name         = "TargetResponseTime"
-  extended_statistic  = "p95"
+  alarm_name         = "${var.project}-latency-p95-high"
+  alarm_description  = "p95 латентність понад 500 мс протягом 2 хвилин"
+  namespace          = "AWS/ApplicationELB"
+  metric_name        = "TargetResponseTime"
+  extended_statistic = "p95"
   dimensions = {
     LoadBalancer = aws_lb.main.arn_suffix
   }

@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, Response
 import json
 from app.my_project.districts.service.district_service import DistrictService
 from app.my_project.firedepartments.service.firedepartment_service import FiredepartmentService
+from app.my_project.utils.idempotency import idempotent
 
 districts_bp = Blueprint('districts_bp', __name__, url_prefix='/districts')
 
@@ -23,6 +24,7 @@ def get_district_by_id(district_id):
     return jsonify({"error": "District not found"}), 404
 
 @districts_bp.route('', methods=['POST'])
+@idempotent
 def create_district():
     data = request.get_json()
     new_district = service.create_district(data)

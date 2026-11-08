@@ -51,6 +51,10 @@ resource "aws_ecs_task_definition" "app" {
       { name = "DB_NAME", value = aws_db_instance.main.db_name },
       { name = "DB_USER", value = aws_db_instance.main.username },
       { name = "DB_PASSWORD", value = var.db_password },
+      { name = "REDIS_HOST", value = "${aws_service_discovery_service.redis.name}.${aws_service_discovery_private_dns_namespace.main.name}" },
+      { name = "CACHE_ENABLED", value = tostring(var.cache_enabled) },
+      { name = "CACHE_TTL", value = tostring(var.cache_ttl) },
+      { name = "CACHE_INVALIDATE", value = tostring(var.cache_invalidate) },
     ]
 
     logConfiguration = {

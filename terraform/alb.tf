@@ -12,6 +12,9 @@ resource "aws_lb_target_group" "app" {
   vpc_id      = aws_vpc.main.id
   target_type = "ip"
 
+  # Скільки секунд балансувальник чекає завершення поточних запитів до задачі, яку вилучають
+  deregistration_delay = 30
+
   health_check {
     path                = "/health"
     matcher             = "200"

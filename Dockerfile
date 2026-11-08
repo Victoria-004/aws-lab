@@ -11,4 +11,4 @@ RUN useradd --create-home appuser
 USER appuser
 
 EXPOSE 5000
-CMD ["sh", "-c", "python init_db.py && gunicorn --bind 0.0.0.0:5000 --workers 3 --threads 4 --timeout 60 main:app"]
+CMD ["sh", "-c", "python init_db.py && exec gunicorn --bind 0.0.0.0:5000 --workers 3 --threads 4 --timeout 60 main:app"]
