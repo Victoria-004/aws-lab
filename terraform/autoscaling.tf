@@ -4,6 +4,12 @@ resource "aws_appautoscaling_target" "app" {
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.app.name}"
   min_capacity       = var.min_count
   max_capacity       = var.max_count
+
+  # Мінімум і максимум змінюють scheduled actions (день/ніч). Без ignore_changes
+  # кожен terraform apply скидав би їх до значень зі змінних.
+  lifecycle {
+    ignore_changes = [min_capacity, max_capacity]
+  }
 }
 
 resource "aws_appautoscaling_policy" "requests" {
