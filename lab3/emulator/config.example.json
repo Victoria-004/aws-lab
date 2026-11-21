@@ -1,0 +1,11 @@
+{
+  "base_url": "https://REPLACE_ME.execute-api.eu-north-1.amazonaws.com",
+  "api_key": "REPLACE_ME",
+  "duration_s": 300,
+  "sensors": [
+    {"sensor_id": "temp-01",  "sensor_type": "temperature", "interval_ms": 50,  "lat": 49.8397, "lon": 24.0297},
+    {"sensor_id": "hum-01",   "sensor_type": "humidity",    "interval_ms": 70,  "lat": 49.8420, "lon": 24.0310},
+    {"sensor_id": "light-01", "sensor_type": "light",       "interval_ms": 100, "lat": 49.8385, "lon": 24.0250},
+    {"sensor_id": "cam-01",   "sensor_type": "camera",      "period_s": 15,     "lat": 49.8410, "lon": 24.0280}
+  ]
+}
