@@ -10,3 +10,5 @@ __pycache__/
 terraform.tfvars
 .venv/
 .pytest_cache/
+
+lab3/functions/dist/

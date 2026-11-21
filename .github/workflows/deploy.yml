@@ -6,6 +6,8 @@ on:
     paths-ignore:
       - 'README.md'
       - '**.md'
+      - 'lab3/**'
+      - 'docs/**'
 
 permissions:
   id-token: write
