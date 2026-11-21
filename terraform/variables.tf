@@ -43,8 +43,9 @@ variable "scale_in_cooldown" {
 }
 
 variable "request_target" {
-  type    = number
-  default = 50
+  type        = number
+  default     = 300
+  description = "Поріг запитів за хвилину на одну задачу, після якого додаються задачі"
 }
 
 variable "alert_email" {
